@@ -31,12 +31,21 @@
 </html>
 
 <?php
+    function validate_date($date){
+        if(empty(strtotime($date))){
+            return "";
+        }else{
+            return $date;
+        }
+    }
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
         $cpf = filter_input(INPUT_POST, "cpf", FILTER_SANITIZE_SPECIAL_CHARS);
-        $data = strtotime($_POST["data_filiacao"]);
+        $data = validate_date($_POST["data_filiacao"]);
+
+        echo "a data é {$data} <br>";
 
 
         if(empty($nome)){
