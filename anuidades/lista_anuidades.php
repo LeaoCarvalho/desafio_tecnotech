@@ -9,7 +9,7 @@
 
     <?php
 
-        include("database.php");
+        include("../database.php");
 
         $select = "SELECT id, ano, valor FROM anuidades";
         $result = $db_connection->query($select);
@@ -21,7 +21,7 @@
                         <br>
                         Valor: {$row["valor"]}
                         <br>
-                        <a href=\"/desafio_tecnotech/editar_anuidade.php?id={$row["id"]}\">editar</a>
+                        <a href=\"/desafio_tecnotech/anuidades/editar_anuidade.php?id={$row["id"]}\">editar</a>
                       </div>";
             }
         } else {
@@ -29,7 +29,7 @@
         }
 
         echo "<div>
-                <a href=\"/desafio_tecnotech/cadastro_anuidade.php\">Cadastrar nova anuidade</a>
+                <a href=\"/desafio_tecnotech/anuidades/cadastro_anuidade.php\">Cadastrar nova anuidade</a>
               </div>";
         
 

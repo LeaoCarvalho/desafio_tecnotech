@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de anuidade</title>
+    <title>Editar anuidade</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
             echo "missing id <br>";
         }else{
 
-            include("database.php");
+            include("../database.php");
 
             $select = "SELECT ano, valor FROM anuidades WHERE id = '{$id}'";
             $result = $db_connection->query($select);
@@ -67,12 +67,13 @@
                         WHERE id = {$id};";
             
             try{
-                include("database.php");
+                include("../database.php");
                 $db_connection->query($update);
                 echo "O valor da anuidade de {$ano} agora é {$valor} <br>";
             }catch(mysqli_sql_exception){
                 echo "Não foi possível modificar o valor da anuidade <br>";
             }finally{
+                echo "<a href=\"/desafio_tecnotech/anuidades/lista_anuidades.php\">Voltar para a lista</a> <br>";
                 mysqli_close($db_connection);
             }
 

@@ -19,6 +19,9 @@
             <input type="submit", name="enviar", value="enviar">
         </div>
     </form>
+    <br>
+    <a href="/desafio_tecnotech/anuidades/lista_anuidades.php">Voltar para a lista</a>
+    <br>
 </body>
 </html>
 
@@ -34,7 +37,7 @@
         }elseif(empty($valor)){
             echo "Valor inválido <br>";
         }else{
-            include("database.php");
+            include("../database.php");
         
             $insert = "INSERT INTO anuidades (ano, valor)
                        VALUES ('{$ano}','{$valor}');";

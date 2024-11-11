@@ -27,6 +27,9 @@
             <input type="submit", name="enviar", value="enviar">
         </div>
     </form>
+    <div>
+        <a href="/desafio_tecnotech/associados/lista_associados.php">Voltar a lista</a>
+    </div>
 </body>
 </html>
 
@@ -57,7 +60,7 @@
         }elseif(empty($data)){
             echo "Data inválida <br>";
         }else{
-            include("database.php");
+            include("../database.php");
         
             $insert = "INSERT INTO associados (nome, email, cfp, data_filiacao)
                        VALUES ('{$nome}', '{$email}', '{$cpf}', '{$data}');";

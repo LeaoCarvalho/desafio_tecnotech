@@ -30,7 +30,7 @@
             ];
         }
 
-        $select_pagamentos = "SELECT anuidade, situacao FROM pagamentos WHERE associado <= '{$id}'";
+        $select_pagamentos = "SELECT anuidade, situacao FROM pagamentos WHERE associado = '{$id}'";
         $result_pagamento = $db->query($select_pagamentos);
         while ($row = $result_pagamento->fetch_assoc()) {
             $anuidades[$row["anuidade"]]["situacao"] = $row["situacao"];
@@ -48,7 +48,7 @@
 
     if($_SERVER["REQUEST_METHOD"] == "GET"){
 
-        include("database.php");
+        include("../database.php");
 
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
@@ -98,6 +98,9 @@
                 }
             }
             echo "</div>";
+            echo "<div>
+              <a href=\"/desafio_tecnotech/associados/lista_associados.php\">Voltar a lista</a>
+            </div>";
         } else {
             echo "Não foi possível encontrar o associado <br> ";
         }
@@ -106,7 +109,7 @@
 
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
         
-        include("database.php");
+        include("../database.php");
         
         $associado = filter_input(INPUT_POST, "associado", FILTER_VALIDATE_INT);
         $anuidade = filter_input(INPUT_POST, "anuidade", FILTER_VALIDATE_INT);
@@ -136,6 +139,9 @@
                 echo "Não foi possível cadastrar o pagamento <br>";
             }finally{
                 mysqli_close($db_connection);
+                echo "<div>
+                        <a href=\"/desafio_tecnotech/associados/lista_associados.php\">Voltar a lista</a>
+                    </div>";
             }
         }
 

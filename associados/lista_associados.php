@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de anuidades</title>
+    <title>Lista de associados</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
                 $anuidades[$row["id"]] = false;
             }
 
-            $select_pagamentos = "SELECT anuidade, situacao FROM pagamentos WHERE associado <= '{$id}'";
+            $select_pagamentos = "SELECT anuidade, situacao FROM pagamentos WHERE associado = '{$id}'";
             $result_pagamento = $db->query($select_pagamentos);
             while ($row = $result_pagamento->fetch_assoc()) {
                 $anuidades[$row["anuidade"]] = $row["situacao"];
@@ -32,7 +32,7 @@
             return true;
         }
 
-        include("database.php");
+        include("../database.php");
         	
 
 
@@ -59,7 +59,7 @@
                         <br>
                         Situação: {$situacao}
                         <br>
-                        <a href=\"/desafio_tecnotech/associado.php?id={$row["id"]}\">Ver detalhes</a>
+                        <a href=\"/desafio_tecnotech/associados/associado.php?id={$row["id"]}\">Ver detalhes</a>
                       </div>";
             }
         } else {
@@ -67,7 +67,7 @@
         }
 
         echo "<div>
-                <a href=\"/desafio_tecnotech/cadastro_associados.php\">Cadastrar novo associado</a>
+                <a href=\"/desafio_tecnotech/associados/cadastro_associados.php\">Cadastrar novo associado</a>
               </div>";
         
 
