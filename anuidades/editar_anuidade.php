@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar anuidade</title>
+    <link href="../style.css" rel="stylesheet">
 </head>
 <body>
 
@@ -12,7 +13,11 @@
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         if(empty($id)){
-            echo "missing id <br>";
+            echo "
+                <div class=\"centralize\">
+                    <h2> Anuidade não encontrada </h2>
+                </div>
+                    ";
         }else{
 
             include("../database.php");
@@ -27,23 +32,41 @@
                 $ano = $row["ano"];
                 $valor = $row["valor"];
                 echo "
-                <form action=\" " . htmlspecialchars($_SERVER["PHP_SELF"]) . " \", method=\"post\">
-                <input type=\"hidden\" name=\"id\" value=\"{$id}\">
-                <input type=\"hidden\" name=\"ano\" value=\"{$ano}\">
-                    <div>
-                        Ano: {$ano}
+                    <div class=\"centralize\">
+                        <div>
+                            <div class=\"centralize\">
+                                <h1>
+                                    Editar anuidade
+                                </h1>
+                            </div>
+
+                            <div class=\"border\">
+                                <form action=\" " . htmlspecialchars($_SERVER["PHP_SELF"]) . " \", method=\"post\">
+                                <input type=\"hidden\" name=\"id\" value=\"{$id}\">
+                                <input type=\"hidden\" name=\"ano\" value=\"{$ano}\">
+                                    <div>
+                                        Ano: {$ano}
+                                    </div>
+                                    <div>
+                                        <label>Valor:</label>
+                                        <input type=\"number\" name=\"valor\", id=\"valor\" value=\"{$valor}\" required>
+                                    </div>
+                                    <div>
+                                        <input type=\"submit\", name=\"enviar\", value=\"enviar\">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label>Valor:</label>
-                        <input type=\"number\" name=\"valor\", id=\"valor\" value=\"{$valor}\" required>
-                    </div>
-                    <div>
-                        <input type=\"submit\", name=\"enviar\", value=\"enviar\">
-                    </div>
-                </form>
                 ";
             } else {
-                echo "Id inválido <br>";
+                echo "
+                    <div class=\"centralize\">
+                        <h1>
+                            Anuidade não encontrada
+                        </h1>
+                    </div>
+                    ";
             }
 
 
@@ -55,12 +78,30 @@
         $valor = filter_input(INPUT_POST, "valor", FILTER_VALIDATE_INT);
 
         if(empty($id)){
-            echo "Id inválido <br>";
+            echo "
+                    <div class=\"centralize\">
+                        <h1>
+                            Id inválido
+                        </h1>
+                    </div>
+                    ";
         }elseif(empty($ano)){
-            echo "Ano inválido <br>";
+            echo "
+                    <div class=\"centralize\">
+                        <h1>
+                            Ano inválido
+                        </h1>
+                    </div>
+                    ";
             echo $_POST["ano"];
         }elseif(empty($valor)){
-            echo "Valor inválido <br>";
+            echo "
+                    <div class=\"centralize\">
+                        <h1>
+                            Valor inválido
+                        </h1>
+                    </div>
+                    ";
         }else{
             $update = "UPDATE anuidades
                         SET ano = '{$ano}', valor = '{$valor}'
@@ -69,11 +110,27 @@
             try{
                 include("../database.php");
                 $db_connection->query($update);
-                echo "O valor da anuidade de {$ano} agora é {$valor} <br>";
+                echo "
+                    <div class=\"centralize\">
+                        <h1>
+                            O valor da anuidade de {$ano} agora é {$valor}
+                        </h1>
+                    </div>
+                    ";
             }catch(mysqli_sql_exception){
-                echo "Não foi possível modificar o valor da anuidade <br>";
+                echo "
+                    <div class=\"centralize\">
+                        <h1>
+                            Não foi possível modificar o valor da anuidade
+                        </h1>
+                    </div>
+                    ";
             }finally{
-                echo "<a href=\"/desafio_tecnotech/anuidades/lista_anuidades.php\">Voltar para a lista</a> <br>";
+                echo "
+                    <div class=\"centralize\">
+                        <a href=\"/desafio_tecnotech/anuidades/lista_anuidades.php\">Voltar para a lista</a>
+                    </div>
+                    ";
                 mysqli_close($db_connection);
             }
 
